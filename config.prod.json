@@ -1,0 +1,17 @@
+{
+	"server_url": "https://ucharify-api.herokuapp.com",
+
+	"STRIPE_KEY": "pk_live_DsBKJbrrd6vFxI4HzwL5ogAR",
+	"STRIPE_CONNECT_ID": "ca_EeCx0ztPuZRyagXlZgdf4ew2E0Gn8aGU",
+
+	"DEFAULT_LOGO": "https://s3-us-west-1.amazonaws.com/charify-assets/defaultLogo.png",
+
+	"DEFAULT_CHARITY_PROFILE_PIC": "https://s3-us-west-1.amazonaws.com/charify-assets/defaultCharityProfilePic.png",
+	"DEFAULT_CHARITY_COVER_PIC": "https://s3-us-west-1.amazonaws.com/charify-assets/defaultCharityCoverPic.jpg",
+
+	"DEFAULT_DONOR_PROFILE_PIC": "https://s3-us-west-1.amazonaws.com/charify-assets/defaultDonorProfilePic.png",
+
+	"TERMS_PDF": "https://s3-us-west-1.amazonaws.com/charify-assets/terms.pdf",
+
+	"STRIPE_LOGO": "https://s3-us-west-1.amazonaws.com/charify-assets/powered_by_stripe.png"
+}
