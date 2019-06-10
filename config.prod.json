@@ -1,5 +1,5 @@
 {
-	"server_url": "https://ucharify-api.herokuapp.com",
+	"server_url": "https://deb-api.herokuapp.com",
 
 	"STRIPE_KEY": "pk_live_DsBKJbrrd6vFxI4HzwL5ogAR",
 	"STRIPE_CONNECT_ID": "ca_EeCx0ztPuZRyagXlZgdf4ew2E0Gn8aGU",
