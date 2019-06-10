@@ -10,3 +10,7 @@
     -> My History (past payments list)
     -> Settings
     -> (bottom of sidebar) Profile
+
+
+
+// `npm start` to serve built index.html to HEROKU
