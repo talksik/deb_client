@@ -6,9 +6,9 @@ const PORT = process.env.PORT || 8080;
 
 app.use(express.static('dist'));
 
-// viewed at http://localhost:8080
+// viewed at http://localhost:8081
 app.get('*', function(req, res) {
-	res.sendFile('index.html');
+  res.sendFile('index.html');
 });
 
 console.log('Starting server on port: ' + PORT);
