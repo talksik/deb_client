@@ -1,17 +1,10 @@
 {
-	"server_url": "http://localhost:5000",
+  "server_url": "http://localhost:5000",
 
-	"STRIPE_KEY": "pk_test_xPZzi9Y8uYGaHIBprkNe4jDr",
-	"STRIPE_CONNECT_ID": "ca_EeCxc3WY624dMuO6B5JGlizTZfYiqdrp",
+  "DEFAULT_LOGO": "https://s3-us-west-1.amazonaws.com/charify-assets/defaultLogo.png",
 
-	"DEFAULT_LOGO": "https://s3-us-west-1.amazonaws.com/charify-assets/defaultLogo.png",
-
-	"DEFAULT_CHARITY_PROFILE_PIC": "https://s3-us-west-1.amazonaws.com/charify-assets/defaultCharityProfilePic.png",
-	"DEFAULT_CHARITY_COVER_PIC": "https://s3-us-west-1.amazonaws.com/charify-assets/defaultCharityCoverPic.jpg",
-
-	"DEFAULT_DONOR_PROFILE_PIC": "https://s3-us-west-1.amazonaws.com/charify-assets/defaultDonorProfilePic.png",
-
-	"TERMS_PDF": "https://s3-us-west-1.amazonaws.com/charify-assets/terms.pdf",
-
-	"STRIPE_LOGO": "https://s3-us-west-1.amazonaws.com/charify-assets/powered_by_stripe.png"
+  "GOOGLE_API_KEY": "AIzaSyCZCgZY7ZlSMk1DW0NEEoHZ9qwdSL4AR1k",
+  "OAUTH2_CLIENT_ID": "951578952608-6v55t0skirb80r8rtcvelhj4lfnpp2iq.apps.googleusercontent.com",
+  "OAUTH2_CLIENT_SECRET": "8qVGMfiIN6a1q2YoG4WhpTyJ",
+  "OAUTH2_CALLBACK": "http://localhost:8080/auth/google/callback"
 }

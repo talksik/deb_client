@@ -1,32 +1,34 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<meta charset="utf-8" />
-		<meta
-			name="viewport"
-			content="width=device-width, initial-scale=1, shrink-to-fit=no"
-		/>
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
 
-		<link
-			rel="stylesheet"
-			href="https://fonts.googleapis.com/css?family=Roboto:300,400,500"
-		/>
-		<link rel="stylesheet" type="text/css" href="/styles.css" />
-		<link
-			rel="icon"
-			href="https://s3-us-west-1.amazonaws.com/charify-assets/defaultLogo.png"
-			type="image/png"
-		/>
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Roboto:300,400,500"
+    />
+    <link rel="stylesheet" type="text/css" href="/styles.css" />
+    <link
+      rel="icon"
+      href="https://s3-us-west-1.amazonaws.com/charify-assets/defaultLogo.png"
+      type="image/png"
+    />
 
-		<title>DoEverythingBar</title>
-	</head>
+    <title>DoEverythingBar</title>
+  </head>
 
-	<body>
-		<div id="app"></div>
-		<!-- Need to change 
+  <body>
+    <div id="app"></div>
+    <!-- Need to change 
 			dev: /bundle.js
 			prod: ./bundle.js XXXX discovered that need the dev /bundle.js for history api fallback in prod. Also, it works in AWS, but not opening up the html file local
 		 -->
-		<script src="/bundle.js"></script>
-	</body>
+
+    <script src="https://apis.google.com/js/api.js"></script>
+    <script src="/bundle.js"></script>
+  </body>
 </html>
