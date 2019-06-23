@@ -5,6 +5,7 @@ import styles from './root.less';
 import backgroundImage from '../assets/images/mainbg.jpg';
 
 import MainCommand from './MainCommand';
+import AvailableCommandsIcons from './AvailableCommandsIcons';
 
 const Root = props => {
   return (
@@ -13,6 +14,8 @@ const Root = props => {
 
       <div className={styles.mainCont}>
         <MainCommand />
+
+        <AvailableCommandsIcons />
 
         <img className={styles.backgroundImage} src={backgroundImage} />
       </div>

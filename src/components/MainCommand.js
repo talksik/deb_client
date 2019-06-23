@@ -5,110 +5,191 @@ const envVars = require('config');
 
 import { GoogleLogin } from 'react-google-login';
 
-class MainCommand extends Component {
-  state = {
-    googleAccessToken: null
-  };
+import { Button } from '@material-ui/core';
+import { Send } from '@material-ui/icons';
 
-  initClient = () => {
-    gapi.client
-      .init({
+const INITIAL_STATE = {
+  googleAccessToken: null,
+  googleAuthUser: null,
+  command: 'default',
+  commandInput: '',
+  commandIcon: envVars.DEFAULT_LOGO,
+  commandInputPlaceholder: 'Do Everything You Want',
+  commandComplete: false,
+  commandProcessedData: null
+};
+
+class MainCommand extends Component {
+  state = INITIAL_STATE;
+
+  componentWillMount() {
+    gapi.load('client:auth2', () => {
+      gapi.client.init({
         apiKey: envVars.GOOGLE_API_KEY,
         clientId: envVars.OAUTH2_CLIENT_ID,
         discoveryDocs: [
           'https://www.googleapis.com/discovery/v1/apis/gmail/v1/rest'
         ],
         scope: 'profile email https://mail.google.com/'
-      })
-      .then(
-        function() {
-          // Listen for sign-in state changes.
-          console.log(gapi.auth2.getAuthInstance());
-        },
-        function(error) {
-          appendPre(JSON.stringify(error, null, 2));
-        }
-      );
-  };
+      });
+      // .then(
+      //   function() {
+      //     console.log('properly initialized gapi and client and auth2');
+      //     gapi.auth2
+      //       .getAuthInstance()
+      //       .signIn()
+      //       .then(() => {
+      //         // getting all messages example
+      //         // var messageRequest = gapi.client.gmail.users.messages.get({
+      //         //   userId: 'me',
+      //         //   id: '16b854db03a69932',
+      //         //   format: 'full'
+      //         // });
+      //         // messageRequest.execute(function(response) {
+      //         //   console.log(response);
+      //         // });
 
-  componentWillMount() {
-    gapi.load('client:auth2', () => {
-      gapi.client
-        .init({
-          apiKey: envVars.GOOGLE_API_KEY,
-          clientId: envVars.OAUTH2_CLIENT_ID,
-          discoveryDocs: [
-            'https://www.googleapis.com/discovery/v1/apis/gmail/v1/rest'
-          ],
-          scope: 'profile email https://mail.google.com/'
-        })
-        .then(
-          function() {
-            console.log('properly initialized gapi and client and auth2');
-            gapi.auth2
-              .getAuthInstance()
-              .signIn()
-              .then(() => {
-                gapi.client.gmail.users.labels
-                  .list({
-                    userId: 'me'
-                  })
-                  .then(function(response) {
-                    var labels = response.result.labels;
-                    console.log(labels);
-                  });
-
-                // var messageRequest = gapi.client.gmail.users.messages.get({
-                //   userId: 'me',
-                //   id: '16b854db03a69932',
-                //   format: 'full'
-                // });
-                // messageRequest.execute(function(response) {
-                //   console.log(response);
-                // });
-                gapi.client.gmail.users.messages
-                  .send({
-                    userId: 'me',
-                    requestBody: {
-                      // same response with any of these
-                      raw: reallyEncodedMessage
-                      // raw: encodedMessage
-                      // raw: message
-                    }
-                  })
-                  .then(function() {
-                    console.log('done!');
-                  });
-              });
-          },
-          function(error) {
-            appendPre(JSON.stringify(error, null, 2));
-          }
-        );
+      //       });
+      //   },
+      //   function(error) {
+      //     appendPre(JSON.stringify(error, null, 2));
+      //   }
+      // );
     });
   }
 
-  render() {
-    const responseGoogle = response => {
-      console.log(response);
-      this.setState({ googleAccessToken: response.accessToken }, () =>
-        console.log(this.state)
-      );
-    };
+  googleSignIn = async e => {
+    await console.log('Going through sign in flow');
+    const signInResponse = await gapi.auth2.getAuthInstance().signIn();
 
-    const { googleAccessToken } = this.state;
+    await console.log('Sign in response', signInResponse);
+
+    this.setState({
+      googleAccessToken: signInResponse.Zi.access_token,
+      googleAuthUser: signInResponse.w3
+    });
+  };
+
+  handleInputChange = e => {
+    if (e.key === 'Enter') this.handleSubmitCommand(e);
+    else {
+      var newInput = e.target.value;
+      var newCommand = this.state.command;
+      var newCommandIcon = this.state.commandIcon;
+      var newCommandInputPlaceholder = this.state.commandInputPlaceholder;
+      var newCommandComplete = this.state.commandComplete;
+      var newCommandProcessedData = this.state.commandProcessedData;
+
+      // TODO: helper function to properly change properties
+      if (
+        newInput.includes('gmail') &&
+        newCommandIcon == envVars.DEFAULT_LOGO
+      ) {
+        newCommand = 'gmail';
+        newCommandIcon =
+          'https://image.flaticon.com/icons/png/512/281/281769.png';
+        newInput = newInput.replace('gmail', '');
+        newCommandInputPlaceholder = 'to | subject | message';
+      }
+
+      // TODO: helper function to check if input complete and show submit button
+      if (newCommand == 'gmail') {
+        const gmailSendParts = newInput.split('|');
+        if (gmailSendParts.length == 3) {
+          newCommandComplete = true;
+          newCommandProcessedData = gmailSendParts;
+        }
+      }
+
+      this.setState({
+        command: newCommand,
+        commandInput: newInput,
+        commandIcon: newCommandIcon,
+        commandInputPlaceholder: newCommandInputPlaceholder,
+        commandComplete: newCommandComplete,
+        commandProcessedData: newCommandProcessedData
+      });
+    }
+  };
+
+  handleSubmitCommand = e => {
+    // TODO: make executing api calls modular with helpers/services
+    const processedData = this.state.commandProcessedData;
+
+    if (this.state.command == 'gmail') {
+      const message =
+        `From: ${this.state.googleAuthUser.U3}\r\n` +
+        `To: ${processedData[0]}\r\n` +
+        `Subject: ${processedData[1]}\r\n\r\n` +
+        `${processedData[2]}`;
+      // The body needs to be base64url encoded.
+      const encodedMessage = btoa(message);
+      const reallyEncodedMessage = encodedMessage
+        .replace(/\+/g, '-')
+        .replace(/\//g, '_')
+        .replace(/=+$/, '');
+      var sendEmail = gapi.client.gmail.users.messages.send({
+        userId: 'me',
+        resource: {
+          // same response with any of these
+          raw: reallyEncodedMessage
+          // raw: encodedMessage
+          // raw: message
+        }
+      });
+      return sendEmail.execute(function(response) {
+        console.log('Sent the Email!', response);
+      });
+    }
+
+    this.setState(INITIAL_STATE);
+  };
+
+  render() {
+    const {
+      googleAccessToken,
+      commandInput,
+      commandInputPlaceholder,
+      commandIcon,
+      commandComplete
+    } = this.state;
+
     return (
       <div className={styles.searchCont}>
-        {googleAccessToken == null ? null : ( //   /> //     scope={'https://mail.google.com/'} //     cookiePolicy={'single_host_origin'} //     onFailure={responseGoogle} //     onSuccess={responseGoogle} //     buttonText="Login" //     clientId={envVars.OAUTH2_CLIENT_ID} //   <GoogleLogin
+        {googleAccessToken == null ? (
+          <div className={styles.googleButton} onClick={this.googleSignIn}>
+            <img
+              className={styles.googleLogo}
+              width="20px"
+              alt='Google "G" Logo'
+              src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/512px-Google_%22G%22_Logo.svg.png"
+            />
+            Login with Google
+          </div>
+        ) : (
           <React.Fragment>
-            <div className={styles.commandIcon}>
-              <img className={styles.icon} src={envVars.DEFAULT_LOGO} />
-            </div>
+            <img className={styles.commandIcon} src={commandIcon} />
             <input
+              value={commandInput}
+              onChange={this.handleInputChange}
+              onKeyPress={this.handleInputChange}
               className={styles.searchBar}
-              placeholder="Do Everything You Want"
+              placeholder={commandInputPlaceholder}
             />
           </React.Fragment>
+        )}
+
+        {commandComplete && (
+          <Button
+            variant="contained"
+            color="primary"
+            className={styles.submitButton}
+            onClick={this.handleSubmitCommand}
+          >
+            Send
+            {/* This Button uses a Font Icon, see the installation instructions in the docs. */}
+            <Send />
+          </Button>
         )}
       </div>
     );
