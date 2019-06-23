@@ -72,46 +72,51 @@ class MainCommand extends Component {
     });
   };
 
-  handleInputChange = e => {
-    if (e.key === 'Enter') this.handleSubmitCommand(e);
-    else {
-      var newInput = e.target.value;
-      var newCommand = this.state.command;
-      var newCommandIcon = this.state.commandIcon;
-      var newCommandInputPlaceholder = this.state.commandInputPlaceholder;
-      var newCommandComplete = this.state.commandComplete;
-      var newCommandProcessedData = this.state.commandProcessedData;
+  handleInputKeyDown = e => {
+    var input = e.target.value;
 
-      // TODO: helper function to properly change properties
-      if (
-        newInput.includes('gmail') &&
-        newCommandIcon == envVars.DEFAULT_LOGO
-      ) {
-        newCommand = 'gmail';
-        newCommandIcon =
-          'https://image.flaticon.com/icons/png/512/281/281769.png';
-        newInput = newInput.replace('gmail', '');
-        newCommandInputPlaceholder = 'to | subject | message';
-      }
-
-      // TODO: helper function to check if input complete and show submit button
-      if (newCommand == 'gmail') {
-        const gmailSendParts = newInput.split('|');
-        if (gmailSendParts.length == 3) {
-          newCommandComplete = true;
-          newCommandProcessedData = gmailSendParts;
-        }
-      }
-
-      this.setState({
-        command: newCommand,
-        commandInput: newInput,
-        commandIcon: newCommandIcon,
-        commandInputPlaceholder: newCommandInputPlaceholder,
-        commandComplete: newCommandComplete,
-        commandProcessedData: newCommandProcessedData
-      });
+    if (e.key === 'Enter' && this.state.commandComplete)
+      this.handleSubmitCommand(e);
+    else if ((e.key === 'Backspace' || e.key === 'Delete') && input == '') {
+      console.log('Clearing out command');
+      this.setState(INITIAL_COMMAND_STATE);
     }
+  };
+
+  handleInputChange = e => {
+    var newInput = e.target.value;
+    var newCommand = this.state.command;
+    var newCommandIcon = this.state.commandIcon;
+    var newCommandInputPlaceholder = this.state.commandInputPlaceholder;
+    var newCommandComplete = this.state.commandComplete;
+    var newCommandProcessedData = this.state.commandProcessedData;
+
+    // TODO: helper function to properly change properties
+    if (newInput.includes('gmail') && newCommandIcon == envVars.DEFAULT_LOGO) {
+      newCommand = 'gmail';
+      newCommandIcon =
+        'https://image.flaticon.com/icons/png/512/281/281769.png';
+      newInput = newInput.replace('gmail', '');
+      newCommandInputPlaceholder = 'to | subject | message';
+    }
+
+    // TODO: helper function to check if input complete and show submit button
+    if (newCommand == 'gmail') {
+      const gmailSendParts = newInput.split('|');
+      if (gmailSendParts.length == 3) {
+        newCommandComplete = true;
+        newCommandProcessedData = gmailSendParts;
+      }
+    }
+
+    this.setState({
+      command: newCommand,
+      commandInput: newInput,
+      commandIcon: newCommandIcon,
+      commandInputPlaceholder: newCommandInputPlaceholder,
+      commandComplete: newCommandComplete,
+      commandProcessedData: newCommandProcessedData
+    });
   };
 
   handleSubmitCommand = e => {
@@ -175,7 +180,7 @@ class MainCommand extends Component {
             <input
               value={commandInput}
               onChange={this.handleInputChange}
-              onKeyPress={this.handleInputChange}
+              onKeyDown={this.handleInputKeyDown}
               className={styles.searchBar}
               placeholder={commandInputPlaceholder}
             />
