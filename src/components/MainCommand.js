@@ -8,9 +8,7 @@ import { GoogleLogin } from 'react-google-login';
 import { Button } from '@material-ui/core';
 import { Send } from '@material-ui/icons';
 
-const INITIAL_STATE = {
-  googleAccessToken: null,
-  googleAuthUser: null,
+const INITIAL_COMMAND_STATE = {
   command: 'default',
   commandInput: '',
   commandIcon: envVars.DEFAULT_LOGO,
@@ -20,7 +18,11 @@ const INITIAL_STATE = {
 };
 
 class MainCommand extends Component {
-  state = INITIAL_STATE;
+  state = {
+    googleAccessToken: null,
+    googleAuthUser: null,
+    ...INITIAL_COMMAND_STATE
+  };
 
   componentWillMount() {
     gapi.load('client:auth2', () => {
@@ -128,6 +130,7 @@ class MainCommand extends Component {
         .replace(/\+/g, '-')
         .replace(/\//g, '_')
         .replace(/=+$/, '');
+
       var sendEmail = gapi.client.gmail.users.messages.send({
         userId: 'me',
         resource: {
@@ -137,12 +140,12 @@ class MainCommand extends Component {
           // raw: message
         }
       });
-      return sendEmail.execute(function(response) {
+      sendEmail.execute(function(response) {
         console.log('Sent the Email!', response);
       });
     }
 
-    this.setState(INITIAL_STATE);
+    this.setState(INITIAL_COMMAND_STATE, () => console.log(this.state));
   };
 
   render() {
