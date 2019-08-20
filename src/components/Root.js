@@ -4,6 +4,7 @@ import styles from './root.less';
 
 import backgroundImage from '../assets/images/mainbg.jpg';
 
+import TipCard from './TipCard';
 import MainCommand from './MainCommand';
 import AvailableCommandsIcons from './AvailableCommandsIcons';
 
@@ -13,6 +14,8 @@ const Root = props => {
       {/* Toast for notifications */}
 
       <div className={styles.mainCont}>
+        <TipCard />
+
         <MainCommand />
 
         <AvailableCommandsIcons />
