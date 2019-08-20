@@ -1,7 +1,7 @@
 {
   "server_url": "http://localhost:5000",
 
-  "DEFAULT_LOGO": "https://s3-us-west-1.amazonaws.com/charify-assets/defaultLogo.png",
+  "DEFAULT_LOGO": "https://icon-library.net/images/free-google-icon/free-google-icon-17.jpg",
 
   "GOOGLE_API_KEY": "AIzaSyCZCgZY7ZlSMk1DW0NEEoHZ9qwdSL4AR1k",
   "OAUTH2_CLIENT_ID": "951578952608-6v55t0skirb80r8rtcvelhj4lfnpp2iq.apps.googleusercontent.com",

@@ -9,9 +9,12 @@ import { Button } from '@material-ui/core';
 import { Send } from '@material-ui/icons';
 
 const INITIAL_COMMAND_STATE = {
-  command: 'default',
+  command: 'google',
   commandInput: '',
-  commandIcon: envVars.DEFAULT_LOGO,
+  commandIcon:
+    envVars.DEFAULT_LOGO != null
+      ? envVars.DEFAULT_LOGO
+      : 'https://s3-us-west-1.amazonaws.com/charify-assets/defaultLogo.png',
   commandInputPlaceholder: 'Do Everything You Want',
   commandComplete: false,
   commandProcessedData: null
@@ -68,7 +71,8 @@ class MainCommand extends Component {
 
     this.setState({
       googleAccessToken: signInResponse.Zi.access_token,
-      googleAuthUser: signInResponse.w3
+      googleAuthUser: signInResponse.w3,
+      commandComplete: true
     });
   };
 
@@ -109,6 +113,19 @@ class MainCommand extends Component {
       }
     }
 
+    if (newInput.includes('google') || this.state.command == 'google') {
+      newCommand = 'google';
+      newCommandComplete = true;
+      newCommandInputPlaceholder = 'search for anything';
+    } else if (newInput.includes('utube')) {
+      newCommand = 'utube';
+      newCommandIcon =
+        'https://cdn2.iconfinder.com/data/icons/micon-social-pack/512/youtube-512.png';
+      newInput = newInput.replace('utube', '');
+      newCommandComplete = true;
+      newCommandInputPlaceholder = 'search for any video';
+    }
+
     this.setState({
       command: newCommand,
       commandInput: newInput,
@@ -123,6 +140,7 @@ class MainCommand extends Component {
     // TODO: make executing api calls modular with helpers/services
     const processedData = this.state.commandProcessedData;
 
+    console.log(this.state.command);
     if (this.state.command == 'gmail') {
       const message =
         `From: ${this.state.googleAuthUser.U3}\r\n` +
@@ -148,6 +166,17 @@ class MainCommand extends Component {
       sendEmail.execute(function(response) {
         console.log('Sent the Email!', response);
       });
+    } else if (this.state.command == 'google') {
+      window.open(
+        'https://www.google.com/search?q=' + this.state.commandInput,
+        '_blank'
+      );
+    } else if (this.state.command == 'utube') {
+      window.open(
+        'https://www.youtube.com/results?search_query=' +
+          this.state.commandInput,
+        '_blank'
+      );
     }
 
     this.setState(INITIAL_COMMAND_STATE, () => console.log(this.state));
