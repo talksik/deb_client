@@ -95,6 +95,7 @@ class MainCommand extends Component {
     var newCommandComplete = this.state.commandComplete;
     var newCommandProcessedData = this.state.commandProcessedData;
 
+    // initial finding that command was entered
     // TODO: helper function to properly change properties
     if (newInput.includes('gmail') && newCommandIcon == envVars.DEFAULT_LOGO) {
       newCommand = 'gmail';
@@ -104,6 +105,21 @@ class MainCommand extends Component {
       newCommandInputPlaceholder = 'to | subject | message';
     }
 
+    if (newCommand == 'google') {
+      newCommand = 'google';
+      newCommandComplete = true;
+      newCommandInputPlaceholder = 'search for anything';
+    }
+
+    if (newInput.includes('utube')) {
+      newCommand = 'utube';
+      newCommandIcon =
+        'https://cdn2.iconfinder.com/data/icons/micon-social-pack/512/youtube-512.png';
+      newInput = newInput.replace('utube', '');
+      newCommandComplete = true;
+      newCommandInputPlaceholder = 'search for any video';
+    }
+
     // TODO: helper function to check if input complete and show submit button
     if (newCommand == 'gmail') {
       const gmailSendParts = newInput.split('|');
@@ -111,19 +127,6 @@ class MainCommand extends Component {
         newCommandComplete = true;
         newCommandProcessedData = gmailSendParts;
       }
-    }
-
-    if (newInput.includes('google') || this.state.command == 'google') {
-      newCommand = 'google';
-      newCommandComplete = true;
-      newCommandInputPlaceholder = 'search for anything';
-    } else if (newInput.includes('utube')) {
-      newCommand = 'utube';
-      newCommandIcon =
-        'https://cdn2.iconfinder.com/data/icons/micon-social-pack/512/youtube-512.png';
-      newInput = newInput.replace('utube', '');
-      newCommandComplete = true;
-      newCommandInputPlaceholder = 'search for any video';
     }
 
     this.setState({
