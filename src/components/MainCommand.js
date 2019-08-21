@@ -138,10 +138,10 @@ class MainCommand extends Component {
     ) {
       newCommand = 'reddit';
       newCommandIcon =
-        'https://cdn2.iconfinder.com/data/icons/micon-social-pack/512/youtube-512.png';
-      newInput = newInput.replace('utube', '');
+        'https://cdn0.iconfinder.com/data/icons/social-media-2092/100/social-36-512.png';
+      newInput = newInput.replace('red', '');
       newCommandComplete = true;
-      newCommandInputPlaceholder = 'search for any video';
+      newCommandInputPlaceholder = 'search for any subreddit';
     } else if (newCommand == 'google') {
       newCommand = 'google';
       newCommandComplete = true;
@@ -213,6 +213,11 @@ class MainCommand extends Component {
           this.state.commandInput,
         '_blank'
       );
+    } else if (this.state.command == 'reddit') {
+      window.open(
+        'https://www.reddit.com/r/' + this.state.commandInput,
+        '_blank'
+      );
     }
 
     this.setState(INITIAL_COMMAND_STATE, () => {
@@ -273,7 +278,11 @@ class MainCommand extends Component {
           </Button>
         )}
 
-        <ToastsContainer store={ToastsStore} />
+        <ToastsContainer
+          store={ToastsStore}
+          position={'TOP_RIGHT'}
+          className={styles.notificationCont}
+        />
       </div>
     );
   }

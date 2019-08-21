@@ -25,22 +25,28 @@ const TipCard = props => {
           Google
         </Typography>
         <Typography variant="body2" component="p">
-          By default, any search + enter button will search on Google.
+          Just search below to use Google.
         </Typography>
 
         <Typography variant="h6" component="h2">
           Gmail
         </Typography>
         <Typography variant="body2" component="p">
-          Type in the command 'gmail' and follow instructions to send a quick
-          email.
+          Type in the command 'gmail' and send a quick email.
         </Typography>
 
         <Typography variant="h6" component="h2">
           Youtube
         </Typography>
         <Typography variant="body2" component="p">
-          Type in 'ubute' and it will go straight to the search
+          Type in 'ubute' and find your video right away.
+        </Typography>
+
+        <Typography variant="h6" component="h2">
+          Reddit
+        </Typography>
+        <Typography variant="body2" component="p">
+          Type in 'red' and go straight to a subreddit.
         </Typography>
 
         <br />
