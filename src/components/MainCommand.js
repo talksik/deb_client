@@ -5,8 +5,19 @@ const envVars = require('config');
 
 import { GoogleLogin } from 'react-google-login';
 
-import { Button } from '@material-ui/core';
+import { Button, Card, Typography } from '@material-ui/core';
 import { Send } from '@material-ui/icons';
+
+import { ToastsContainer, ToastsStore } from 'react-toasts';
+
+// Old notification elem for manual use
+// const notification = (
+//   <Card id="notification" className={styles.notificationCont}>
+//     <Typography variant="overline" color="inherit">
+//       Successfully executed command!
+//     </Typography>
+//   </Card>
+// );
 
 const INITIAL_COMMAND_STATE = {
   command: 'google',
@@ -65,6 +76,10 @@ class MainCommand extends Component {
     });
   }
 
+  componentDidMount() {
+    this.mainBar.focus();
+  }
+
   googleSignIn = async e => {
     await console.log('Going through sign in flow');
     const signInResponse = await gapi.auth2.getAuthInstance().signIn();
@@ -107,25 +122,34 @@ class MainCommand extends Component {
       newInput = newInput.replace('gmail', '');
       newCommandInputPlaceholder = 'to | subject | message';
       newNeedGoogleAuth = true;
-    }
-
-    if (newCommand == 'google') {
-      newCommand = 'google';
-      newCommandComplete = true;
-      newCommandInputPlaceholder = 'search for anything';
-    }
-
-    if (newInput.includes('utube')) {
+    } else if (
+      newInput.includes('utube') &&
+      newCommandIcon == envVars.DEFAULT_LOGO
+    ) {
       newCommand = 'utube';
       newCommandIcon =
         'https://cdn2.iconfinder.com/data/icons/micon-social-pack/512/youtube-512.png';
       newInput = newInput.replace('utube', '');
       newCommandComplete = true;
       newCommandInputPlaceholder = 'search for any video';
+    } else if (
+      newInput.includes('red') &&
+      newCommandIcon == envVars.DEFAULT_LOGO
+    ) {
+      newCommand = 'reddit';
+      newCommandIcon =
+        'https://cdn2.iconfinder.com/data/icons/micon-social-pack/512/youtube-512.png';
+      newInput = newInput.replace('utube', '');
+      newCommandComplete = true;
+      newCommandInputPlaceholder = 'search for any video';
+    } else if (newCommand == 'google') {
+      newCommand = 'google';
+      newCommandComplete = true;
+      newCommandInputPlaceholder = 'search for anything';
     }
 
-    // TODO: helper function to check if input complete and show submit button
     if (newCommand == 'gmail') {
+      // TODO: helper function to check if input complete for current command and show submit button
       const gmailSendParts = newInput.split('|');
       if (gmailSendParts.length == 3) {
         newCommandComplete = true;
@@ -191,7 +215,10 @@ class MainCommand extends Component {
       );
     }
 
-    this.setState(INITIAL_COMMAND_STATE, () => console.log(this.state));
+    this.setState(INITIAL_COMMAND_STATE, () => {
+      console.log(this.state);
+      ToastsStore.success('Successfully executed command!');
+    });
   };
 
   render() {
@@ -222,6 +249,9 @@ class MainCommand extends Component {
         <React.Fragment>
           <img className={styles.commandIcon} src={commandIcon} />
           <input
+            ref={input => {
+              this.mainBar = input;
+            }}
             value={commandInput}
             onChange={this.handleInputChange}
             onKeyDown={this.handleInputKeyDown}
@@ -242,6 +272,8 @@ class MainCommand extends Component {
             <Send />
           </Button>
         )}
+
+        <ToastsContainer store={ToastsStore} />
       </div>
     );
   }
