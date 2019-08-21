@@ -205,7 +205,7 @@ class MainCommand extends Component {
     } else if (this.state.command == 'google') {
       // if they type chase.com it will go straight there
       if (commandInput.includes('.com')) {
-        window.open(commandInput, '_blank');
+        window.open('https://' + commandInput, '_blank');
       } else {
         window.open(
           'https://www.google.com/search?q=' + commandInput,
