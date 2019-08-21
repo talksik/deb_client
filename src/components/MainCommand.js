@@ -17,7 +17,9 @@ const INITIAL_COMMAND_STATE = {
       : 'https://s3-us-west-1.amazonaws.com/charify-assets/defaultLogo.png',
   commandInputPlaceholder: 'Do Everything You Want',
   commandComplete: false,
-  commandProcessedData: null
+  commandProcessedData: null,
+
+  needGoogleAuth: false
 };
 
 class MainCommand extends Component {
@@ -94,6 +96,7 @@ class MainCommand extends Component {
     var newCommandInputPlaceholder = this.state.commandInputPlaceholder;
     var newCommandComplete = this.state.commandComplete;
     var newCommandProcessedData = this.state.commandProcessedData;
+    var newNeedGoogleAuth = this.state.needGoogleAuth;
 
     // initial finding that command was entered
     // TODO: helper function to properly change properties
@@ -103,6 +106,7 @@ class MainCommand extends Component {
         'https://image.flaticon.com/icons/png/512/281/281769.png';
       newInput = newInput.replace('gmail', '');
       newCommandInputPlaceholder = 'to | subject | message';
+      newNeedGoogleAuth = true;
     }
 
     if (newCommand == 'google') {
@@ -127,6 +131,11 @@ class MainCommand extends Component {
         newCommandComplete = true;
         newCommandProcessedData = gmailSendParts;
       }
+    }
+
+    if (newNeedGoogleAuth) {
+      // Make the user go through google sign in
+      this.googleSignIn();
     }
 
     this.setState({
@@ -196,8 +205,11 @@ class MainCommand extends Component {
 
     return (
       <div className={styles.searchCont}>
-        {googleAccessToken == null ? (
-          <div className={styles.googleButton} onClick={this.googleSignIn}>
+        {/* Google Sign In button */}
+        {/* <div
+            className={[styles.googleButton, styles.hidden].join(' ')}
+            onClick={this.googleSignIn}
+          >
             <img
               className={styles.googleLogo}
               width="20px"
@@ -205,19 +217,18 @@ class MainCommand extends Component {
               src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/512px-Google_%22G%22_Logo.svg.png"
             />
             Login with Google
-          </div>
-        ) : (
-          <React.Fragment>
-            <img className={styles.commandIcon} src={commandIcon} />
-            <input
-              value={commandInput}
-              onChange={this.handleInputChange}
-              onKeyDown={this.handleInputKeyDown}
-              className={styles.searchBar}
-              placeholder={commandInputPlaceholder}
-            />
-          </React.Fragment>
-        )}
+          </div> */}
+
+        <React.Fragment>
+          <img className={styles.commandIcon} src={commandIcon} />
+          <input
+            value={commandInput}
+            onChange={this.handleInputChange}
+            onKeyDown={this.handleInputKeyDown}
+            className={styles.searchBar}
+            placeholder={commandInputPlaceholder}
+          />
+        </React.Fragment>
 
         {commandComplete && (
           <Button
