@@ -175,8 +175,8 @@ class MainCommand extends Component {
   handleSubmitCommand = e => {
     // TODO: make executing api calls modular with helpers/services
     const processedData = this.state.commandProcessedData;
+    const commandInput = this.state.commandInput;
 
-    console.log(this.state.command);
     if (this.state.command == 'gmail') {
       const message =
         `From: ${this.state.googleAuthUser.U3}\r\n` +
@@ -203,21 +203,22 @@ class MainCommand extends Component {
         console.log('Sent the Email!', response);
       });
     } else if (this.state.command == 'google') {
-      window.open(
-        'https://www.google.com/search?q=' + this.state.commandInput,
-        '_blank'
-      );
+      // if they type chase.com it will go straight there
+      if (commandInput.includes('.com')) {
+        window.open(commandInput, '_blank');
+      } else {
+        window.open(
+          'https://www.google.com/search?q=' + commandInput,
+          '_blank'
+        );
+      }
     } else if (this.state.command == 'utube') {
       window.open(
-        'https://www.youtube.com/results?search_query=' +
-          this.state.commandInput,
+        'https://www.youtube.com/results?search_query=' + commandInput,
         '_blank'
       );
     } else if (this.state.command == 'reddit') {
-      window.open(
-        'https://www.reddit.com/r/' + this.state.commandInput,
-        '_blank'
-      );
+      window.open('https://www.reddit.com/r/' + commandInput, '_blank');
     }
 
     this.setState(INITIAL_COMMAND_STATE, () => {
