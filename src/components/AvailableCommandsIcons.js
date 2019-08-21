@@ -12,7 +12,6 @@ const AvailableCommandsIcons = props => {
       <Tooltip title="default search on google">
         <img className={styles.icon} src={envVars.DEFAULT_LOGO} />
       </Tooltip>
-
       {/* Gmail */}
       <Tooltip title="gmail">
         <img
@@ -20,7 +19,6 @@ const AvailableCommandsIcons = props => {
           src={'https://image.flaticon.com/icons/png/512/281/281769.png'}
         />
       </Tooltip>
-
       {/* Reddit */}
       <Tooltip title="red">
         <img
@@ -30,7 +28,6 @@ const AvailableCommandsIcons = props => {
           }
         />
       </Tooltip>
-
       {/* Youtube */}
       <Tooltip title="utube">
         <img
@@ -41,6 +38,15 @@ const AvailableCommandsIcons = props => {
         />
       </Tooltip>
 
+      {/* Twitter */}
+      <Tooltip title="twit">
+        <img
+          className={styles.icon}
+          src={
+            'https://www.coopdgii.com/wp-content/uploads/2016/12/Icono_Twitter.png.png'
+          }
+        />
+      </Tooltip>
       {/* Slack */}
       {/* <img
         className={styles.icon}
@@ -48,7 +54,6 @@ const AvailableCommandsIcons = props => {
           'https://a.slack-edge.com/4a5c4/marketing/img/meta/slack_hash_256.png'
         }
       /> */}
-
       {/* Google Maps */}
       {/* <img
         className={styles.icon}
@@ -56,7 +61,6 @@ const AvailableCommandsIcons = props => {
           'https://travelhoney.com/wp-content/uploads/2017/03/google-maps-for-ios-8-1.png'
         }
       /> */}
-
       {/* Android Messages */}
       {/* <img
         className={styles.icon}

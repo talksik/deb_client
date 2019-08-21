@@ -142,6 +142,16 @@ class MainCommand extends Component {
       newInput = newInput.replace('red', '');
       newCommandComplete = true;
       newCommandInputPlaceholder = 'search for any subreddit';
+    } else if (
+      newInput.includes('twit') &&
+      newCommandIcon == envVars.DEFAULT_LOGO
+    ) {
+      newCommand = 'twitter';
+      newCommandIcon =
+        'https://www.coopdgii.com/wp-content/uploads/2016/12/Icono_Twitter.png.png';
+      newInput = newInput.replace('twit', '');
+      newCommandComplete = true;
+      newCommandInputPlaceholder = "what's happening";
     } else if (newCommand == 'google') {
       newCommand = 'google';
       newCommandComplete = true;
@@ -219,6 +229,8 @@ class MainCommand extends Component {
       );
     } else if (this.state.command == 'reddit') {
       window.open('https://www.reddit.com/r/' + commandInput, '_blank');
+    } else if (this.state.command == 'twitter') {
+      window.open('https://twitter.com/search?q=' + commandInput, '_blank');
     }
 
     this.setState(INITIAL_COMMAND_STATE, () => {
