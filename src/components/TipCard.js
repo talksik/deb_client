@@ -49,6 +49,13 @@ const TipCard = props => {
           Type in 'red' and go straight to a subreddit.
         </Typography>
 
+        <Typography variant="h6" component="h2">
+          Twitter
+        </Typography>
+        <Typography variant="body2" component="p">
+          Type in 'twit' and see what's happening.
+        </Typography>
+
         <br />
 
         <Typography variant="body2" component="i">
