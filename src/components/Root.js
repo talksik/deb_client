@@ -8,6 +8,8 @@ import TipCard from './TipCard';
 import MainCommand from './MainCommand';
 import AvailableCommandsIcons from './AvailableCommandsIcons';
 
+import { Typography, Card, CardContent } from '@material-ui/core';
+
 function getRandomInt(max) {
   return Math.floor(Math.random() * Math.floor(max));
 }
@@ -23,11 +25,20 @@ const Root = props => {
       {/* Toast for notifications */}
 
       <div className={styles.mainCont}>
-        <TipCard />
-
         <MainCommand />
 
         <AvailableCommandsIcons />
+
+        <Card className={styles.directionsCard}>
+          <Typography
+            variant="overline"
+            align="left"
+            component="h1"
+            color="primary"
+          >
+            Hover on icons above for commands
+          </Typography>
+        </Card>
 
         <img className={styles.backgroundImage} src={bgImg} />
       </div>
