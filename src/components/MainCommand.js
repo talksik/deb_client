@@ -152,7 +152,19 @@ class MainCommand extends Component {
       newInput = newInput.replace('twit', '');
       newCommandComplete = true;
       newCommandInputPlaceholder = "what's happening";
-    } else if (newCommand == 'google') {
+    } else if (
+      newInput.includes('gcal') &&
+      newCommandIcon == envVars.DEFAULT_LOGO
+    ) {
+      // execute command right away and reset
+      newCommand = 'gcal';
+      newCommandComplete = true;
+
+      window.location = 'https://calendar.google.com/calendar/r';
+
+      this.setState(INITIAL_COMMAND_STATE);
+    } // this one must be last, as its the default google search
+    else if (newCommand == 'google') {
       newCommand = 'google';
       newCommandComplete = true;
       newCommandInputPlaceholder = 'search for anything';
@@ -215,12 +227,9 @@ class MainCommand extends Component {
     } else if (this.state.command == 'google') {
       // if they type chase.com it will go straight there
       if (commandInput.includes('.com')) {
-        window.open('https://' + commandInput, '_blank');
+        window.location = 'https://' + commandInput;
       } else {
-        window.open(
-          'https://www.google.com/search?q=' + commandInput,
-          '_blank'
-        );
+        window.location = 'https://www.google.com/search?q=' + commandInput;
       }
     } else if (this.state.command == 'utube') {
       window.open(
@@ -228,9 +237,9 @@ class MainCommand extends Component {
         '_blank'
       );
     } else if (this.state.command == 'reddit') {
-      window.open('https://www.reddit.com/r/' + commandInput, '_blank');
+      window.location = 'https://www.reddit.com/r/' + commandInput;
     } else if (this.state.command == 'twitter') {
-      window.open('https://twitter.com/search?q=' + commandInput, '_blank');
+      window.location = 'https://twitter.com/search?q=' + commandInput;
     }
 
     this.setState(INITIAL_COMMAND_STATE, () => {
