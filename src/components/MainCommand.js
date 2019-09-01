@@ -153,6 +153,17 @@ class MainCommand extends Component {
       newCommandComplete = true;
       newCommandInputPlaceholder = "what's happening";
     } else if (
+      newInput.includes('gdrive') &&
+      newCommandIcon == envVars.DEFAULT_LOGO
+    ) {
+      // execute command right away and reset
+      newCommand = 'gdrive';
+      newCommandComplete = true;
+
+      window.location = 'https://drive.google.com';
+
+      this.setState(INITIAL_COMMAND_STATE);
+    } else if (
       newInput.includes('gcal') &&
       newCommandIcon == envVars.DEFAULT_LOGO
     ) {
@@ -163,6 +174,16 @@ class MainCommand extends Component {
       window.location = 'https://calendar.google.com/calendar/r';
 
       this.setState(INITIAL_COMMAND_STATE);
+    } else if (
+      newInput.includes('fb') &&
+      newCommandIcon == envVars.DEFAULT_LOGO
+    ) {
+      newCommand = 'fb';
+      newCommandIcon =
+        'https://www.petconnectrescue.org/wp-content/uploads/2016/10/FB-icon.png';
+      newInput = newInput.replace('fb', '');
+      newCommandComplete = true;
+      newCommandInputPlaceholder = 'search for people, groups, etc.';
     } // this one must be last, as its the default google search
     else if (newCommand == 'google') {
       newCommand = 'google';
@@ -240,6 +261,11 @@ class MainCommand extends Component {
       window.location = 'https://www.reddit.com/r/' + commandInput;
     } else if (this.state.command == 'twitter') {
       window.location = 'https://twitter.com/search?q=' + commandInput;
+    } else if (this.state.command == 'fb') {
+      var transformedSearchQuery = commandInput.replace(' ', '%20');
+      var fbUrl =
+        'https://www.facebook.com/search/top/?q=' + transformedSearchQuery;
+      window.location = fbUrl;
     }
 
     this.setState(INITIAL_COMMAND_STATE, () => {
