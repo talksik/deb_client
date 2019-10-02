@@ -18,7 +18,9 @@ const Root = props => {
   //dynamically getting particular bg
   var bgNum = getRandomInt(5);
   const images = require.context('../assets/images', true);
-  let bgImg = images('./mainbg' + bgNum + '.jpg');
+  // TODO: make it cycle through background images again
+  // let bgImg = images('./mainbg' + bgNum + '.jpg');
+  let bgImg = images('./mainbg' + 3 + '.jpg');
 
   return (
     <React.Fragment>
