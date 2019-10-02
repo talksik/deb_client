@@ -184,6 +184,16 @@ class MainCommand extends Component {
       newInput = newInput.replace('fb', '');
       newCommandComplete = true;
       newCommandInputPlaceholder = 'search for people, groups, etc.';
+    } else if (
+      newInput.includes('lkin') &&
+      newCommandIcon == envVars.DEFAULT_LOGO
+    ) {
+      newCommand = 'lkin';
+      newCommandIcon =
+        'https://icon-library.net/images/linkedin-icon-eps/linkedin-icon-eps-29.jpg';
+      newInput = newInput.replace('lkin', '');
+      newCommandComplete = true;
+      newCommandInputPlaceholder = 'search for people, jobs, etc.';
     } // this one must be last, as its the default google search
     else if (newCommand == 'google') {
       newCommand = 'google';
@@ -253,10 +263,8 @@ class MainCommand extends Component {
         window.location = 'https://www.google.com/search?q=' + commandInput;
       }
     } else if (this.state.command == 'utube') {
-      window.open(
-        'https://www.youtube.com/results?search_query=' + commandInput,
-        '_blank'
-      );
+      window.location =
+        'https://www.youtube.com/results?search_query=' + commandInput;
     } else if (this.state.command == 'reddit') {
       window.location = 'https://www.reddit.com/r/' + commandInput;
     } else if (this.state.command == 'twitter') {
@@ -266,6 +274,12 @@ class MainCommand extends Component {
       var fbUrl =
         'https://www.facebook.com/search/top/?q=' + transformedSearchQuery;
       window.location = fbUrl;
+    } else if (this.state.command == 'lkin') {
+      var transformedSearchQuery = commandInput.replace(' ', '%20');
+      var lkinUrl =
+        'https://www.linkedin.com/search/results/all/?keywords=' +
+        transformedSearchQuery;
+      window.location = lkinUrl;
     }
 
     this.setState(INITIAL_COMMAND_STATE, () => {

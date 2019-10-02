@@ -19,7 +19,6 @@ const AvailableCommandsIcons = props => {
           src={'https://image.flaticon.com/icons/png/512/281/281769.png'}
         />
       </Tooltip>
-
       {/* Google Calendar */}
       <Tooltip title="gcal">
         <img
@@ -29,7 +28,6 @@ const AvailableCommandsIcons = props => {
           }
         />
       </Tooltip>
-
       {/* Youtube */}
       <Tooltip title="utube">
         <img
@@ -39,7 +37,6 @@ const AvailableCommandsIcons = props => {
           }
         />
       </Tooltip>
-
       {/* Google Drive */}
       <Tooltip title="gdrive">
         <img
@@ -49,7 +46,15 @@ const AvailableCommandsIcons = props => {
           }
         />
       </Tooltip>
-
+      {/* LinkedIn */}
+      <Tooltip title="lkin">
+        <img
+          className={styles.icon}
+          src={
+            'https://icon-library.net/images/linkedin-icon-eps/linkedin-icon-eps-29.jpg'
+          }
+        />
+      </Tooltip>
       {/* Reddit */}
       <Tooltip title="red">
         <img
@@ -59,7 +64,6 @@ const AvailableCommandsIcons = props => {
           }
         />
       </Tooltip>
-
       {/* Twitter */}
       <Tooltip title="twit">
         <img
@@ -70,7 +74,7 @@ const AvailableCommandsIcons = props => {
         />
       </Tooltip>
 
-      {/* Twitter */}
+      {/* Facebook */}
       <Tooltip title="fb">
         <img
           className={styles.icon}
@@ -79,6 +83,7 @@ const AvailableCommandsIcons = props => {
           }
         />
       </Tooltip>
+
       {/* Slack */}
       {/* <img
         className={styles.icon}
