@@ -26,7 +26,7 @@ const INITIAL_COMMAND_STATE = {
     envVars.DEFAULT_LOGO != null
       ? envVars.DEFAULT_LOGO
       : 'https://s3-us-west-1.amazonaws.com/charify-assets/defaultLogo.png',
-  commandInputPlaceholder: 'Do Everything You Want',
+  commandInputPlaceholder: 'Do Anything You Want',
   commandComplete: false,
   commandProcessedData: null,
 
