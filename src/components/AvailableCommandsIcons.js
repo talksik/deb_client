@@ -64,6 +64,15 @@ const AvailableCommandsIcons = props => {
           }
         />
       </Tooltip>
+
+      {/* Amazon */}
+      <Tooltip title="amz">
+        <img
+          className={styles.icon}
+          src={'http://lofrev.net/wp-content/photos/2016/06/amazon-logo-1.png'}
+        />
+      </Tooltip>
+
       {/* Twitter */}
       <Tooltip title="twit">
         <img
@@ -73,7 +82,6 @@ const AvailableCommandsIcons = props => {
           }
         />
       </Tooltip>
-
       {/* Facebook */}
       <Tooltip title="fb">
         <img
@@ -83,7 +91,6 @@ const AvailableCommandsIcons = props => {
           }
         />
       </Tooltip>
-
       {/* Slack */}
       {/* <img
         className={styles.icon}

@@ -194,6 +194,16 @@ class MainCommand extends Component {
       newInput = newInput.replace('lkin', '');
       newCommandComplete = true;
       newCommandInputPlaceholder = 'search for people, jobs, etc.';
+    } else if (
+      newInput.includes('amz') &&
+      newCommandIcon == envVars.DEFAULT_LOGO
+    ) {
+      newCommand = 'amz';
+      newCommandIcon =
+        'http://lofrev.net/wp-content/photos/2016/06/amazon-logo-1.png';
+      newInput = newInput.replace('amz', '');
+      newCommandComplete = true;
+      newCommandInputPlaceholder = 'buy anything';
     } // this one must be last, as its the default google search
     else if (newCommand == 'google') {
       newCommand = 'google';
@@ -279,6 +289,10 @@ class MainCommand extends Component {
       var lkinUrl =
         'https://www.linkedin.com/search/results/all/?keywords=' +
         transformedSearchQuery;
+      window.location = lkinUrl;
+    } else if (this.state.command == 'amz') {
+      var transformedSearchQuery = commandInput.replace(' ', '+');
+      var lkinUrl = 'https://www.amazon.com/s?k=' + transformedSearchQuery;
       window.location = lkinUrl;
     }
 
